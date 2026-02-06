@@ -487,7 +487,7 @@ class QueuedJobsTable extends Table {
 				'age' => $age,
 			],
 			'order' => [
-				'priority' => 'ASC',
+//				'priority' => 'ASC', // non serve, poiché viene selezionata una priorità fissa
 				'age' => 'ASC',
 				'id' => 'ASC',
 			],
@@ -556,7 +556,7 @@ class QueuedJobsTable extends Table {
 
 		// Generate the task specific conditions.
 		foreach ($tasks as $name => $task) {
-			$timeoutAt = $now->copy();
+			// $timeoutAt = $now->copy();
 			$tmp = [
 				'job_task' => $name,
 				'AND' => [
@@ -568,7 +568,8 @@ class QueuedJobsTable extends Table {
 					],
 					[
 						'OR' => [
-							'fetched <' => $timeoutAt->subSeconds($task['timeout']),
+							// commentato per evitare di rischedulare un processo in esecuzione nel caso di più worker per ciascuna priority
+							// 'fetched <' => $timeoutAt->subSeconds($task['timeout']),
 							'fetched IS' => null,
 						],
 					],
