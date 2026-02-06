@@ -469,7 +469,8 @@ class Processor {
 				"3" => 3,
 				"4" => 4,
 				"5" => 5,
-				default => 5,
+				"6" => 6,
+				default => 6,
 			};
 		}
 
